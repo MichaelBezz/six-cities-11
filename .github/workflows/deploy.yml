@@ -6,55 +6,35 @@ on:
       - master
 
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Check Out
-      uses: actions/checkout@v2.4.0
-      with:
-        persist-credentials: false
-
-    - name: Install Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-
-    - name: Install NPM packages
-      run: |
-        if [ -d 'project' ]; then cd project && npm ci; else echo 'Skip. The project directory does not exist'; fi
-
-    - name: Run tests
-      run: |
-        if [ -d 'project' ]; then cd project && npm test && npm run lint; else echo 'Skip. The project directory does not exist'; fi
-
-    - name: Build project
-      run: |
-        if [ -d 'project' ]; then cd project && npm run build; else echo 'Skip. The project directory does not exist'; fi
-
-    - name: Upload production-ready build files
-      uses: actions/upload-artifact@v2
-      with:
-        name: production-files
-        path: ./project/build
-
   deploy:
-    name: Deploy
-    needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
 
     steps:
-    - name: Download artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: production-files
-        path: ./project/build
+      - name: Check Out
+        uses: actions/checkout@v2.4.0
+        with:
+          persist-credentials: false
 
-    - name: Deploy
-            uses: JamesIves/github-pages-deploy-action@v4.2.2
-            with:
-              token: ${{ secrets.GITHUB_TOKEN }}
-              folder: ./project/build
-              branch: gh-pages
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+
+      - name: Installing NPM packages
+        run: |
+          if [ -d 'project' ]; then cd project && npm ci; else echo 'Skip. The project directory does not exist'; fi
+
+      - name: Testing
+        run: |
+          if [ -d 'project' ]; then cd project && npm test && npm run lint; else echo 'Skip. The project directory does not exist'; fi
+
+      - name: Building
+        run: |
+          if [ -d 'project' ]; then cd project && npm run build; else echo 'Skip. The project directory does not exist'; fi
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4.2.2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          folder: ./project/build
+          branch: gh-pages
