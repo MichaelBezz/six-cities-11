@@ -1,3 +1,4 @@
+import {useRef, useEffect} from 'react';
 import Sort from '../../components/sort/sort';
 import OfferList from '../../components/offer-list/offer-list';
 import {Offers} from '../../types/offer';
@@ -10,8 +11,22 @@ type OfferSectionProps = {
 }
 
 function OfferSection({location, sortType, offers}: OfferSectionProps): JSX.Element {
+  const places = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    if (isMounted) {
+      places.current?.scrollTo(0, 0);
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [location]);
+
   return (
-    <section className="cities__places places" data-testid="offer-section">
+    <section ref={places} className="cities__places places" data-testid="offer-section">
       <h2 className="visually-hidden">Places</h2>
 
       <b className="places__found">

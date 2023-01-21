@@ -24,6 +24,10 @@ const mockStore = configureMockStore();
 const history = createMemoryHistory();
 
 describe('Component: OfferSection', () => {
+  beforeAll(() => {
+    Element.prototype.scrollTo = jest.fn();
+  });
+
   it('should render correctly', () => {
     const store = mockStore(fakeState);
 
