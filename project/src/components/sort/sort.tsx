@@ -1,4 +1,4 @@
-import {memo, useState} from 'react';
+import {memo, useRef, useState, useEffect} from 'react';
 import cn from 'classnames';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {changeSort} from '../../store/offers-data/offers-data';
@@ -9,8 +9,34 @@ type SortProps = {
 }
 
 function Sort({sortType}: SortProps): JSX.Element {
-  const dispatch = useAppDispatch();
+  const list = useRef<HTMLUListElement | null>(null);
   const [toggleList, setToggleList] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const sortList = list.current;
+
+    const handleSortListToggle = (event: MouseEvent | TouchEvent) => {
+      if (sortList?.contains(event.target as HTMLLIElement)) {
+        return;
+      }
+
+      setToggleList(false);
+    };
+
+    let isMounted = true;
+
+    if (isMounted) {
+      document.addEventListener('mousedown', handleSortListToggle);
+      document.addEventListener('touchstart', handleSortListToggle);
+    }
+
+    return () => {
+      isMounted = false;
+      document.removeEventListener('mousedown', handleSortListToggle);
+      document.removeEventListener('touchstart', handleSortListToggle);
+    };
+  }, []);
 
   return (
     <form className="places__sorting" action="#" method="get" data-testid="sort">
@@ -29,6 +55,7 @@ function Sort({sortType}: SortProps): JSX.Element {
         </svg>
       </span>
       <ul
+        ref={list}
         className={cn('places__options places__options--custom', {
           'places__options--opened': toggleList
         })}
