@@ -6,3 +6,5 @@
    * `main-empty.html` - без списка предложений;
 * `property.html` — страница «Room» (Карточка предложения по аренде, пользователь авторизован):
    * `property-not-logged.html` - пользователь не авторизован;
+* `favorites.html` - страница «Favorites» (Избранное):
+   * `favorites-empty.html` - пустая страница.
