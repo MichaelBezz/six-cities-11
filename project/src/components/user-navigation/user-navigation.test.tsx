@@ -5,15 +5,20 @@ import {HelmetProvider} from 'react-helmet-async';
 import {createMemoryHistory} from 'history';
 import HistoryRouter from '../../components/history-route/history-route';
 import UserNavigation from './user-navigation';
-import {makeFakeUserData} from '../../utils/mocks';
+import {makeFakeUserData, makeFakeOffers} from '../../utils/mocks';
 import {AuthorizationStatus} from '../../constants';
 
 const fakeUserData = makeFakeUserData();
+const fakeOffers = makeFakeOffers();
 
 const fakeState = {
   USER: {
     authorizationStatus: AuthorizationStatus.NoAuthorized,
     userData: fakeUserData
+  },
+  FAVORITE_OFFERS: {
+    offers: fakeOffers,
+    isLoading: false
   }
 };
 
