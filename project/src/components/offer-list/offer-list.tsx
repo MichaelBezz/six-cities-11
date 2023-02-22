@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import OfferCard from '../offer-card/offer-card';
 import {Offers} from '../../types/offer';
+import {OfferCardType} from '../../constants';
 
 type OfferListProps = {
   offers: Offers;
@@ -22,7 +23,7 @@ function OfferList({offers, isMainOffer, isNearOffer}: OfferListProps): JSX.Elem
         <OfferCard
           key={offer.id.toString()}
           offer={offer}
-          isMainOffer
+          cardType={isMainOffer ? OfferCardType.Cities : OfferCardType.NearPlaces}
         />
       ))}
     </div>

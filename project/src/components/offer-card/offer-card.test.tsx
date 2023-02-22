@@ -7,6 +7,7 @@ import {createMemoryHistory} from 'history';
 import HistoryRouter from '../../components/history-route/history-route';
 import OfferCard from './offer-card';
 import {makeFakeOffers, makeFakeOffer} from '../../utils/mocks';
+import {OfferCardType} from '../../constants';
 
 const fakeOffer = makeFakeOffer();
 const fakeOffers = makeFakeOffers();
@@ -29,7 +30,7 @@ describe('Component: OfferCard', () => {
       <Provider store={store}>
         <HistoryRouter history={history}>
           <HelmetProvider>
-            <OfferCard offer={fakeOffer} isMainOffer />
+            <OfferCard offer={fakeOffer} cardType={OfferCardType.Cities} />
           </HelmetProvider>
         </HistoryRouter>
       </Provider>
@@ -50,7 +51,7 @@ describe('Component: OfferCard', () => {
       <Provider store={store}>
         <HistoryRouter history={history}>
           <HelmetProvider>
-            <OfferCard offer={fakeOffer} isNearOffer />
+            <OfferCard offer={fakeOffer} cardType={OfferCardType.NearPlaces} />
           </HelmetProvider>
         </HistoryRouter>
       </Provider>
@@ -76,7 +77,7 @@ describe('Component: OfferCard', () => {
       <Provider store={store}>
         <HistoryRouter history={history}>
           <HelmetProvider>
-            <OfferCard offer={offerWithPremiumLabel} isMainOffer />
+            <OfferCard offer={offerWithPremiumLabel} cardType={OfferCardType.Cities} />
           </HelmetProvider>
         </HistoryRouter>
       </Provider>
@@ -92,7 +93,7 @@ describe('Component: OfferCard', () => {
       <Provider store={store}>
         <HistoryRouter history={history}>
           <HelmetProvider>
-            <OfferCard offer={fakeOffer} isMainOffer />
+            <OfferCard offer={fakeOffer} cardType={OfferCardType.Cities} />
           </HelmetProvider>
         </HistoryRouter>
       </Provider>

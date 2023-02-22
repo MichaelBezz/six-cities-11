@@ -27,6 +27,12 @@ export enum Reducer {
   OfferProperty = 'OFFER_PROPERTY'
 }
 
+export enum OfferCardType {
+  Cities = 'cities',
+  Favorites = 'favorites',
+  NearPlaces = 'near-places'
+}
+
 export enum Location {
   Paris = 'Paris',
   Cologne = 'Cologne',
