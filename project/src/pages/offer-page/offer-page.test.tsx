@@ -37,6 +37,10 @@ const fakeState = {
     nearOffers: fakeNearOffers,
     reviews: fakeReviews,
     isReviewFormBlocked: false
+  },
+  FAVORITE_OFFERS: {
+    offers: fakeOffers,
+    isLoading: false
   }
 };
 

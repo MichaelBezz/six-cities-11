@@ -1,10 +1,14 @@
+import {Provider} from 'react-redux';
+import {AnyAction} from '@reduxjs/toolkit';
+import thunk from 'redux-thunk';
+import {HelmetProvider} from 'react-helmet-async';
 import {render, screen} from '@testing-library/react';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import {Provider} from 'react-redux';
-import {HelmetProvider} from 'react-helmet-async';
 import {createMemoryHistory} from 'history';
+import {createAPI} from '../../services/api';
 import HistoryRouter from '../../components/history-route/history-route';
 import UserNavigation from './user-navigation';
+import {State} from '../../types/state';
 import {makeFakeUserData, makeFakeOffers} from '../../utils/mocks';
 import {AuthorizationStatus} from '../../constants';
 
@@ -22,7 +26,10 @@ const fakeState = {
   }
 };
 
-const mockStore = configureMockStore();
+const api = createAPI();
+const middlewares = [thunk.withExtraArgument(api)];
+const mockStore = configureMockStore<State, AnyAction>(middlewares);
+
 const history = createMemoryHistory();
 
 describe('Component: UserNavigation', () => {

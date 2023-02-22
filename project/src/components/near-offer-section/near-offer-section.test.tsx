@@ -9,12 +9,19 @@ import {makeFakeOffers} from '../../utils/mocks';
 
 const fakeOffers = makeFakeOffers();
 
+const fakeState = {
+  FAVORITE_OFFERS: {
+    offers: fakeOffers,
+    isLoading: false
+  }
+};
+
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
 
 describe('Component: NearOfferSection', () => {
   it('should render correctly', () => {
-    const store = mockStore();
+    const store = mockStore(fakeState);
 
     render(
       <Provider store={store}>

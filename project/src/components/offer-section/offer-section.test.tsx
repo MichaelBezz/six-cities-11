@@ -17,6 +17,10 @@ const fakeState = {
     offers: fakeOffers,
     selectedOffer: fakeOffers[0],
     isOffersLoading: false
+  },
+  FAVORITE_OFFERS: {
+    offers: fakeOffers,
+    isLoading: false
   }
 };
 

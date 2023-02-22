@@ -6,16 +6,24 @@ import {HelmetProvider} from 'react-helmet-async';
 import {createMemoryHistory} from 'history';
 import HistoryRouter from '../../components/history-route/history-route';
 import OfferCard from './offer-card';
-import {makeFakeOffer} from '../../utils/mocks';
+import {makeFakeOffers, makeFakeOffer} from '../../utils/mocks';
 
 const fakeOffer = makeFakeOffer();
+const fakeOffers = makeFakeOffers();
+
+const fakeState = {
+  FAVORITE_OFFERS: {
+    offers: fakeOffers,
+    isLoading: false
+  }
+};
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
 
 describe('Component: OfferCard', () => {
   it('should render correctly main card offer', () => {
-    const store = mockStore();
+    const store = mockStore(fakeState);
 
     render(
       <Provider store={store}>
@@ -36,7 +44,7 @@ describe('Component: OfferCard', () => {
   });
 
   it('should render correctly near card offer', () => {
-    const store = mockStore();
+    const store = mockStore(fakeState);
 
     render(
       <Provider store={store}>
@@ -57,7 +65,7 @@ describe('Component: OfferCard', () => {
   });
 
   it('should render correctly premium label', () => {
-    const store = mockStore();
+    const store = mockStore(fakeState);
 
     const offerWithPremiumLabel = {
       ...fakeOffer,
@@ -78,7 +86,7 @@ describe('Component: OfferCard', () => {
   });
 
   it('should dispatch action "selectOffer" if user hover on the card', async () => {
-    const store = mockStore();
+    const store = mockStore(fakeState);
 
     render(
       <Provider store={store}>

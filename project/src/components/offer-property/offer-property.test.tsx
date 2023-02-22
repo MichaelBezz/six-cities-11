@@ -5,16 +5,24 @@ import {HelmetProvider} from 'react-helmet-async';
 import {createMemoryHistory} from 'history';
 import HistoryRouter from '../../components/history-route/history-route';
 import OfferProperty from './offer-property';
-import {makeFakeOffer} from '../../utils/mocks';
+import {makeFakeOffers, makeFakeOffer} from '../../utils/mocks';
 
 const fakeOffer = makeFakeOffer();
+const fakeOffers = makeFakeOffers();
+
+const fakeState = {
+  FAVORITE_OFFERS: {
+    offers: fakeOffers,
+    isLoading: false
+  }
+};
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
 
 describe('Component: OfferProperty', () => {
   it('should render correctly', () => {
-    const store = mockStore();
+    const store = mockStore(fakeState);
 
     render(
       <Provider store={store}>
@@ -30,7 +38,7 @@ describe('Component: OfferProperty', () => {
   });
 
   it('should render correctly premium label', () => {
-    const store = mockStore();
+    const store = mockStore(fakeState);
 
     const offerWithPremiumLabel = {
       ...fakeOffer,

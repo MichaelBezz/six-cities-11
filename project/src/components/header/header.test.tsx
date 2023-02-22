@@ -1,12 +1,16 @@
-import userEvent from '@testing-library/user-event';
-import {render, screen} from '@testing-library/react';
-import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
+import {AnyAction} from '@reduxjs/toolkit';
+import thunk from 'redux-thunk';
 import {Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createMemoryHistory} from 'history';
+import {createAPI} from '../../services/api';
 import HistoryRouter from '../../components/history-route/history-route';
 import Header from './header';
+import {State} from '../../types/state';
 import {makeFakeUserData, makeFakeOffers} from '../../utils/mocks';
 import {AppRoute, AuthorizationStatus} from '../../constants';
 
@@ -24,8 +28,11 @@ const fakeState = {
   }
 };
 
+const api = createAPI();
+const middlewares = [thunk.withExtraArgument(api)];
+const mockStore = configureMockStore<State, AnyAction>(middlewares);
+
 const history = createMemoryHistory();
-const mockStore = configureMockStore();
 
 describe('Component: Header', () => {
   it('should render correctly without user navigation', () => {
