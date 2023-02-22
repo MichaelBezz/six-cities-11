@@ -2,7 +2,7 @@ import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} fro
 import {getToken} from './token';
 import {processErrorHandle} from './process-error-handle';
 
-const BACKEND_URL = 'https://11.react.pages.academy/six-cities-simple';
+const BACKEND_URL = 'https://11.react.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
 
 export const createAPI = (): AxiosInstance => {

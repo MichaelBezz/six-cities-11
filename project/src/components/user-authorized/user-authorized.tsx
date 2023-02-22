@@ -1,17 +1,22 @@
-import {MouseEvent} from 'react';
+import {useEffect, MouseEvent} from 'react';
 import {Link} from 'react-router-dom';
-import { AppRoute } from '../../constants';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {useAppSelector} from '../../hooks/use-app-selector';
-import { getFavoriteOffers } from '../../store/favorite-offers-data/selectors';
 import {logout} from '../../store/user-data/api-actions';
+import {fetchFavoriteOffers} from '../../store/favorite-offers-data/api-actions';
 import {getUserData} from '../../store/user-data/selectors';
+import {getFavoriteOffers} from '../../store/favorite-offers-data/selectors';
+import {AppRoute} from '../../constants';
 import './user-authorized.css';
 
 function UserAuthorized(): JSX.Element {
   const dispatch = useAppDispatch();
   const userData = useAppSelector(getUserData);
   const favoriteOffers = useAppSelector(getFavoriteOffers);
+
+  useEffect(() => {
+    dispatch(fetchFavoriteOffers());
+  }, [dispatch]);
 
   return (
     <>

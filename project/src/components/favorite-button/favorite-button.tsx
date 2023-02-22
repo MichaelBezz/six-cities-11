@@ -1,13 +1,26 @@
 import cn from 'classnames';
-import {Offer} from '../../types/offer';
+import {useAppDispatch} from '../../hooks/use-app-dispatch';
+import {useAppSelector} from '../../hooks/use-app-selector';
+import {setFavoriteOffer} from '../../store/favorite-offers-data/api-actions';
+import {getFavoriteOffers} from '../../store/favorite-offers-data/selectors';
+import {OfferId} from '../../types/offer';
 
 type FavoriteButtonProps = {
-  offer: Offer;
+  offerId: OfferId;
   isLarge?: boolean;
 };
 
-function FavoriteButton({offer, isLarge}: FavoriteButtonProps): JSX.Element {
-  const {isFavorite} = offer;
+function FavoriteButton({offerId, isLarge}: FavoriteButtonProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const isFavorite = favoriteOffers.find((item) => item.id === offerId);
+
+  const handleButtonClick = () => {
+    dispatch(setFavoriteOffer({
+      offerId,
+      status: isFavorite ? 0 : 1
+    }));
+  };
 
   return (
     <button
@@ -18,6 +31,7 @@ function FavoriteButton({offer, isLarge}: FavoriteButtonProps): JSX.Element {
         'place-card__bookmark-button--active': !isLarge && isFavorite
       })}
       type="button"
+      onClick={handleButtonClick}
     >
       <svg
         className="place-card__bookmark-icon"
