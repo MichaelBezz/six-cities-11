@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom';
 import cn from 'classnames';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {selectOffer} from '../../store/offers-data/offers-data';
+import FavoriteButton from '../favorite-button/favorite-button';
 import {Offer} from '../../types/offer';
 import {formatFirstLetter, calculateRatingWidth} from '../../utils/utils';
 import {AppRoute} from '../../constants';
@@ -47,6 +48,7 @@ function OfferCard({offer, isMainOffer, isNearOffer}: OfferCardProps): JSX.Eleme
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
+          <FavoriteButton offer={offer} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

@@ -1,3 +1,4 @@
+import FavoriteButton from '../favorite-button/favorite-button';
 import {Offer} from '../../types/offer';
 import {formatFirstLetter, calculateRatingWidth} from '../../utils/utils';
 
@@ -15,6 +16,7 @@ function OfferProperty({offer}: OfferPropertyProps): JSX.Element {
 
       <div className="property__name-wrapper" data-testid="offer-property">
         <h1 className="property__name">{offer.title}</h1>
+        <FavoriteButton offer={offer} isLarge />
       </div>
 
       <div className="property__rating rating">
