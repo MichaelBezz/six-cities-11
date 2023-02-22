@@ -2,11 +2,11 @@ import {Helmet} from 'react-helmet-async';
 import {Link, Navigate} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {useAppSelector} from '../../hooks/use-app-selector';
-import {getAuthorizationStatus} from '../../store/user-data/selectors';
+import {getIsAuthorized} from '../../store/user-data/selectors';
 import {changeLocation} from '../../store/offers-data/offers-data';
 import Header from '../../components/header/header';
 import LoginForm from '../../components/login-form/login-form';
-import {AppRoute, AuthorizationStatus, Location, LOCATIONS} from '../../constants';
+import {AppRoute, Location, LOCATIONS} from '../../constants';
 
 const getRandomLocation = (locations: Location[]): Location => {
   const randomIndex = Math.floor(Math.random() * locations.length);
@@ -15,9 +15,9 @@ const getRandomLocation = (locations: Location[]): Location => {
 
 function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isAuthorized = useAppSelector(getIsAuthorized);
 
-  if (authorizationStatus === AuthorizationStatus.Authorized) {
+  if (isAuthorized) {
     return <Navigate to={AppRoute.Main} />;
   }
 
