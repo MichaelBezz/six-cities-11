@@ -5,14 +5,14 @@ import HistoryRouter from './components/history-route/history-route';
 import browserHistory from './services/browser-history';
 
 import {store} from './store/store';
-import {checkAuthorizationAction} from './store/user-data/api-actions';
+import {checkAuthorization} from './store/user-data/api-actions';
 import {fetchOffersAction} from './store/offers-data/api-actions';
 
 import App from './components/app/app';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-store.dispatch(checkAuthorizationAction());
+store.dispatch(checkAuthorization());
 store.dispatch(fetchOffersAction());
 
 const root = ReactDOM.createRoot(

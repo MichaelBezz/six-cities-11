@@ -3,7 +3,7 @@ import {MouseEvent} from 'react';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {useAppSelector} from '../../hooks/use-app-selector';
 import {getUserData} from '../../store/user-data/selectors';
-import {logoutAction} from '../../store/user-data/api-actions';
+import {logout} from '../../store/user-data/api-actions';
 
 function UserAuthorized(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -16,13 +16,13 @@ function UserAuthorized(): JSX.Element {
           <div className="header__avatar-wrapper user__avatar-wrapper">
             <img
               className="header__avatar-image"
-              src={userData.avatarUrl ?? './img/avatar.svg'}
+              src={userData?.avatarUrl}
               width="20"
               height="20"
-              alt={userData.name ?? 'User avatar.'}
+              alt={userData?.name}
             />
           </div>
-          <span className="header__user-name user__name">{userData.email}</span>
+          <span className="header__user-name user__name">{userData?.email}</span>
         </div>
       </li>
       <li className="header__nav-item">
@@ -32,7 +32,7 @@ function UserAuthorized(): JSX.Element {
           onClick={(event: MouseEvent) => {
             event.preventDefault();
 
-            dispatch(logoutAction());
+            dispatch(logout());
           }}
         >
           <span className="header__signout">Sign out</span>

@@ -64,6 +64,6 @@ describe('Component: LoginForm', () => {
     await userEvent.click(buttonElement);
 
     const actions = store.getActions();
-    expect(actions[0].type).toBe('user/login/pending');
+    expect(actions[0].type).toBe('USER/login/pending');
   });
 });

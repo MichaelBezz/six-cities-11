@@ -3,7 +3,7 @@ import thunk, {ThunkDispatch} from 'redux-thunk';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import MockAdapter from 'axios-mock-adapter';
 import {createAPI} from '../../services/api';
-import {checkAuthorizationAction, loginAction, logoutAction} from './api-actions';
+import {checkAuthorization, login, logout} from './api-actions';
 import {AuthorizationData} from '../../types/authorization';
 import {State} from '../../types/state';
 import {makeFakeUserData} from '../../utils/mocks';
@@ -31,13 +31,13 @@ describe('Async actions: userData', () => {
     const store = mockStore();
     expect(store.getActions()).toEqual([]);
 
-    const {payload} = await store.dispatch(checkAuthorizationAction());
+    const {payload} = await store.dispatch(checkAuthorization());
 
     const actions = store.getActions().map(({type}) => type);
 
     expect(actions).toEqual([
-      checkAuthorizationAction.pending.type,
-      checkAuthorizationAction.fulfilled.type
+      checkAuthorization.pending.type,
+      checkAuthorization.fulfilled.type
     ]);
 
     expect(payload).toEqual(fakeUserData);
@@ -53,13 +53,13 @@ describe('Async actions: userData', () => {
     const store = mockStore();
     Storage.prototype.setItem = jest.fn();
 
-    const {payload} = await store.dispatch(loginAction(fakeUser));
+    const {payload} = await store.dispatch(login(fakeUser));
 
     const actions = store.getActions().map(({type}) => type);
 
     expect(actions).toEqual([
-      loginAction.pending.type,
-      loginAction.fulfilled.type
+      login.pending.type,
+      login.fulfilled.type
     ]);
 
     expect(payload).toEqual(fakeUserData);
@@ -76,13 +76,13 @@ describe('Async actions: userData', () => {
     const store = mockStore();
     Storage.prototype.removeItem = jest.fn();
 
-    await store.dispatch(logoutAction());
+    await store.dispatch(logout());
 
     const actions = store.getActions().map(({type}) => type);
 
     expect(actions).toEqual([
-      logoutAction.pending.type,
-      logoutAction.fulfilled.type
+      logout.pending.type,
+      logout.fulfilled.type
     ]);
 
     expect(Storage.prototype.removeItem).toBeCalledTimes(1);

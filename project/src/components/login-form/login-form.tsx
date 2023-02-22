@@ -2,7 +2,7 @@ import {useState, FormEvent, ChangeEvent} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
-import {loginAction} from '../../store/user-data/api-actions';
+import {login} from '../../store/user-data/api-actions';
 import {formatFirstLetter} from '../../utils/utils';
 import {AppRoute} from '../../constants';
 
@@ -47,7 +47,7 @@ function LoginForm(): JSX.Element {
     event.preventDefault();
 
     if (validateForm(formData)) {
-      dispatch(loginAction({
+      dispatch(login({
         login: formData.email,
         password: formData.password
       }));

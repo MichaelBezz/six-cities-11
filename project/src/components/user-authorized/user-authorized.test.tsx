@@ -65,6 +65,6 @@ describe('Component: UserAuthorized', () => {
     await userEvent.click(linkElement);
 
     const actions = store.getActions();
-    expect(actions[0].type).toBe('user/logout/pending');
+    expect(actions[0].type).toBe('USER/logout/pending');
   });
 });

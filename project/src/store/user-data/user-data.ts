@@ -1,12 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {checkAuthorizationAction, loginAction, logoutAction} from './api-actions';
+import {checkAuthorization, login, logout} from './api-actions';
 import {UserDataState} from '../../types/state';
 import {Reducer, AuthorizationStatus} from '../../constants';
-import {UserData} from '../../types/user';
 
 const initialState: UserDataState = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  userData: {} as UserData
+  userData: null
 };
 
 export const userData = createSlice({
@@ -15,22 +14,25 @@ export const userData = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(checkAuthorizationAction.fulfilled, (state, action) => {
+      .addCase(checkAuthorization.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.Authorized;
-        state.userData = action.payload;
+        state.userData = action.payload ?? null;
       })
-      .addCase(checkAuthorizationAction.rejected, (state) => {
+      .addCase(checkAuthorization.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuthorized;
+        state.userData = null;
       })
-      .addCase(loginAction.fulfilled, (state, action) => {
+      .addCase(login.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.Authorized;
-        state.userData = action.payload;
+        state.userData = action.payload ?? null;
       })
-      .addCase(loginAction.rejected, (state) => {
+      .addCase(login.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuthorized;
+        state.userData = null;
       })
-      .addCase(logoutAction.fulfilled, (state) => {
+      .addCase(logout.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuthorized;
+        state.userData = null;
       });
   }
 });

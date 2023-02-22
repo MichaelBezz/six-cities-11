@@ -1,44 +1,55 @@
-import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
+import {AxiosInstance} from 'axios';
+import {toast} from 'react-toastify';
 import {removeToken, saveToken} from '../../services/token';
 import {AppDispatch, State} from '../../types/state';
 import {AuthorizationData} from '../../types/authorization';
 import {UserData} from '../../types/user';
-import {APIRoute} from '../../constants';
+import {APIRoute, Reducer} from '../../constants';
 
-export const checkAuthorizationAction = createAsyncThunk<UserData, undefined, {
+export const checkAuthorization = createAsyncThunk<UserData, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'user/checkAuthorization',
+  `${Reducer.User}/checkAuthorization`,
   async (_arg, {extra: api}) => {
     const {data} = await api.get<UserData>(APIRoute.Login);
     return data;
   }
 );
 
-export const loginAction = createAsyncThunk<UserData, AuthorizationData, {
+export const login = createAsyncThunk<UserData | void, AuthorizationData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'user/login',
+  `${Reducer.User}/login`,
   async ({login: email, password}, {extra: api}) => {
-    const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
-    saveToken(data.token);
-    return data;
+    try {
+      const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
+      saveToken(data.token);
+      return data;
+    }
+    catch {
+      toast.error('Can\'t login');
+    }
   }
 );
 
-export const logoutAction = createAsyncThunk<void, undefined, {
+export const logout = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'user/logout',
+  `${Reducer.User}/logout`,
   async (_arg, {extra: api}) => {
-    await api.delete(APIRoute.Logout);
-    removeToken();
+    try {
+      await api.delete(APIRoute.Logout);
+      removeToken();
+    }
+    catch {
+      toast.error('Can\'t logout');
+    }
   }
 );

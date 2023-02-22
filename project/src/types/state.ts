@@ -9,7 +9,7 @@ export type State = ReturnType<typeof store.getState>;
 
 export type UserDataState = {
   authorizationStatus: AuthorizationStatus;
-  userData: UserData;
+  userData: UserData | null;
 };
 
 export type OffersDataState = {
