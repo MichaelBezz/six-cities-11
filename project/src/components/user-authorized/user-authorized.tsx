@@ -1,9 +1,10 @@
-import './user-authorized.css';
 import {MouseEvent} from 'react';
+import {Link} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {useAppSelector} from '../../hooks/use-app-selector';
-import {getUserData} from '../../store/user-data/selectors';
 import {logout} from '../../store/user-data/api-actions';
+import {getUserData} from '../../store/user-data/selectors';
+import './user-authorized.css';
 
 function UserAuthorized(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -12,7 +13,7 @@ function UserAuthorized(): JSX.Element {
   return (
     <>
       <li className="header__nav-item user">
-        <div className="header__nav-profile">
+        <Link className="header__nav-link header__nav-link--profile" to="#">
           <div className="header__avatar-wrapper user__avatar-wrapper">
             <img
               className="header__avatar-image"
@@ -23,7 +24,8 @@ function UserAuthorized(): JSX.Element {
             />
           </div>
           <span className="header__user-name user__name">{userData?.email}</span>
-        </div>
+          <span className="header__favorite-count">3</span>
+        </Link>
       </li>
       <li className="header__nav-item">
         <a
