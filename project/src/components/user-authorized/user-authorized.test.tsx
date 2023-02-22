@@ -61,7 +61,7 @@ describe('Component: UserAuthorized', () => {
       </Provider>
     );
 
-    const linkElement = screen.getByRole('link');
+    const linkElement = screen.getByText(/Sign out/i);
     await userEvent.click(linkElement);
 
     const actions = store.getActions();

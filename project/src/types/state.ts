@@ -15,9 +15,14 @@ export type UserDataState = {
 export type OffersDataState = {
   location: Location;
   sortType: SortType;
-  offers: Offers;
   selectedOffer: Offer | null;
+  offers: Offers;
   isOffersLoading: boolean;
+};
+
+export type FavoriteOffersDataState = {
+  offers: Offers;
+  isLoading: boolean;
 };
 
 export type OfferPropertyDataState = {

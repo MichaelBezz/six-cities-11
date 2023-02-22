@@ -1,15 +1,17 @@
 export enum AppRoute {
-  Main = '/',
   Login = '/login',
+  Main = '/',
   Offer = '/offer',
+  Favorite = '/favorites',
   NotFound = '*'
 }
 
 export enum APIRoute {
-  Offers = '/hotels',
-  Reviews = '/comments',
   Login = '/login',
-  Logout = '/logout'
+  Logout = '/logout',
+  Offers = '/hotels',
+  Favorite = '/favorite',
+  Reviews = '/comments'
 }
 
 export enum AuthorizationStatus {
@@ -21,6 +23,7 @@ export enum AuthorizationStatus {
 export enum Reducer {
   User = 'USER',
   Offers = 'OFFERS',
+  FavoriteOffers = 'FAVORITE_OFFERS',
   OfferProperty = 'OFFER_PROPERTY'
 }
 
