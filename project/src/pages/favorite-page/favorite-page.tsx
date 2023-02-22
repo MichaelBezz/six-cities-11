@@ -1,15 +1,18 @@
 import {useMemo} from 'react';
+import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import cn from 'classnames';
 
+import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {useAppSelector} from '../../hooks/use-app-selector';
+import {changeLocation} from '../../store/offers-data/offers-data';
 import {getFavoriteOffers} from '../../store/favorite-offers-data/selectors';
 
 import Header from '../../components/header/header';
 import OfferCard from '../../components/offer-card/offer-card';
 
 import {Offers, Offer} from '../../types/offer';
-import {OfferCardType} from '../../constants';
+import {AppRoute, OfferCardType, Location} from '../../constants';
 
 const mapOffersByLocation = (offers: Offers): Record<string, Offers> =>
   offers.reduce((result: Record<string, Offers>, offer: Offer) => {
@@ -25,6 +28,8 @@ const mapOffersByLocation = (offers: Offers): Record<string, Offers> =>
   }, {});
 
 function FavoritePage(): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const favoriteOffers = useAppSelector(getFavoriteOffers);
   const isFavoriteEmpty = favoriteOffers.length;
 
@@ -51,9 +56,13 @@ function FavoritePage(): JSX.Element {
                   <li key={city} className="favorites__locations-items">
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
-                        <a className="locations__item-link" href="#todo">
+                        <Link
+                          className="locations__item-link"
+                          to={AppRoute.Main}
+                          onClick={() => dispatch(changeLocation(city as Location))}
+                        >
                           <span>{city}</span>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                     <div className="favorites__places">
