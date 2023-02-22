@@ -5,12 +5,17 @@ import {HelmetProvider} from 'react-helmet-async';
 import {createMemoryHistory} from 'history';
 import HistoryRouter from '../../components/history-route/history-route';
 import OfferSection from './offer-section';
-import {makeFakeOffers} from '../../utils/mocks';
-import {Location, SortType} from '../../constants';
+import {makeFakeUserData, makeFakeOffers} from '../../utils/mocks';
+import {AuthorizationStatus, Location, SortType} from '../../constants';
 
+const fakeUserData = makeFakeUserData();
 const fakeOffers = makeFakeOffers();
 
 const fakeState = {
+  USER: {
+    authorizationStatus: AuthorizationStatus.NoAuthorized,
+    userData: fakeUserData
+  },
   OFFERS: {
     location: Location.Paris,
     sortType: SortType.Popular,

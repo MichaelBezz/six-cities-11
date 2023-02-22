@@ -6,13 +6,18 @@ import {HelmetProvider} from 'react-helmet-async';
 import {createMemoryHistory} from 'history';
 import HistoryRouter from '../../components/history-route/history-route';
 import OfferCard from './offer-card';
-import {makeFakeOffers, makeFakeOffer} from '../../utils/mocks';
-import {OfferCardType} from '../../constants';
+import {makeFakeUserData, makeFakeOffers, makeFakeOffer} from '../../utils/mocks';
+import {AuthorizationStatus, OfferCardType} from '../../constants';
 
+const fakeUserData = makeFakeUserData();
 const fakeOffer = makeFakeOffer();
 const fakeOffers = makeFakeOffers();
 
 const fakeState = {
+  USER: {
+    authorizationStatus: AuthorizationStatus.NoAuthorized,
+    userData: fakeUserData
+  },
   FAVORITE_OFFERS: {
     offers: fakeOffers,
     isLoading: false
