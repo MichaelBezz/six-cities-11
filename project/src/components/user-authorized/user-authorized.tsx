@@ -1,7 +1,9 @@
 import {MouseEvent} from 'react';
 import {Link} from 'react-router-dom';
+import { AppRoute } from '../../constants';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {useAppSelector} from '../../hooks/use-app-selector';
+import { getFavoriteOffers } from '../../store/favorite-offers-data/selectors';
 import {logout} from '../../store/user-data/api-actions';
 import {getUserData} from '../../store/user-data/selectors';
 import './user-authorized.css';
@@ -9,11 +11,15 @@ import './user-authorized.css';
 function UserAuthorized(): JSX.Element {
   const dispatch = useAppDispatch();
   const userData = useAppSelector(getUserData);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
 
   return (
     <>
       <li className="header__nav-item user">
-        <Link className="header__nav-link header__nav-link--profile" to="#">
+        <Link
+          className="header__nav-link header__nav-link--profile"
+          to={AppRoute.Favorite}
+        >
           <div className="header__avatar-wrapper user__avatar-wrapper">
             <img
               className="header__avatar-image"
@@ -24,7 +30,7 @@ function UserAuthorized(): JSX.Element {
             />
           </div>
           <span className="header__user-name user__name">{userData?.email}</span>
-          <span className="header__favorite-count">3</span>
+          <span className="header__favorite-count">{favoriteOffers.length}</span>
         </Link>
       </li>
       <li className="header__nav-item">
